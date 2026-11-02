@@ -1,0 +1,8 @@
+asset:        screenshot.png
+title:        Zavyx VE screenshot with the built-in demo project
+author:       Mohammad Ibrahim (Zavyx)
+source:       original work (screenshot of Zavyx VE 0.16.0; demo footage is procedural, crates/media/src/generators.rs)
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-11-02 by Claude (agent) for Mohammad Ibrahim
+notes:        README.md hero image.

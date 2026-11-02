@@ -1,0 +1,83 @@
+# Backup release build on GitHub's runners (1-2 hours: every codec compiles from scratch).
+# Releases are normally built on the maintainer's PC and uploaded, which takes minutes. Run this
+# by hand (workflow_dispatch) on a tag to build and publish from GitHub instead.
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            target: x86_64-pc-windows-msvc
+          - arch: x86
+            target: i686-pc-windows-msvc
+    runs-on: windows-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.arch }}
+
+      # The fonts official builds embed for Japanese, Chinese, Korean, Arabic, Thai and
+      # Georgian text (SIL OFL 1.1; their licences ship in the packages).
+      - name: Get craft-fonts
+        shell: pwsh
+        run: |
+          git clone --filter=blob:none https://github.com/storytold/craft-fonts "$env:RUNNER_TEMP\craft-fonts"
+          git -C "$env:RUNNER_TEMP\craft-fonts" checkout b076417b5880bd4154bd22f00695b1d28c6bea83
+          "CRAFT_FONTS_DIR=$env:RUNNER_TEMP\craft-fonts" >> $env:GITHUB_ENV
+
+      - name: Install WiX
+        run: dotnet tool install --global wix --version 5.0.2
+
+      - name: Build installer and portable ZIP
+        shell: pwsh
+        run: ./packaging/windows/package.ps1 -Arch ${{ matrix.arch }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.arch }}
+          path: dist/release/*
+
+  publish:
+    needs: windows
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Checksums
+        run: cd dist && sha256sum * > SHA256SUMS.txt
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Zavyx VE ${{ github.ref_name }}
+          generate_release_notes: false
+          body: |
+            ## Download
+
+            | Windows | Installer | Portable (no install) |
+            | --- | --- | --- |
+            | 64-bit (most PCs) | `zavyx-ve-*-windows-x64.msi` | `zavyx-ve-*-windows-x64-portable.zip` |
+            | 32-bit | `zavyx-ve-*-windows-x86.msi` | `zavyx-ve-*-windows-x86-portable.zip` |
+
+            Windows 10 or 11. The installer asks whether to install for you only (no admin
+            needed) or for everyone.
+          files: dist/*

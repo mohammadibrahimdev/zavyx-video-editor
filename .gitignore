@@ -1,0 +1,13 @@
+*~
+plan/
+/target
+/dist
+/log
+.DS_Store
+.claude/worktrees/
+__pycache__/
+
+# Zavyx: local tools and notes
+/bin/
+HANDOFF.md
+z-ai-prompts/

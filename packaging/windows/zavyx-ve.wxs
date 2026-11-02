@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <?ifndef HasCraftFontLicences ?>
+  <?define HasCraftFontLicences=0 ?>
+  <?endif?>
+  <Package Name="Zavyx VE" Manufacturer="Mohammad Ibrahim" Version="$(var.Version)" UpgradeCode="6C1F0B5E-7A3D-4E59-9B0E-5D2A8E4F7C31" Scope="perUserOrMachine" Compressed="yes" Language="1033">
+    <SummaryInformation Description="Zavyx VE video editor" Manufacturer="Mohammad Ibrahim" />
+    <?include $(sys.SOURCEFILEDIR)install-policy.wxi?>
+    <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
+         (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of Zavyx VE is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Icon Id="ZavyxIcon.ico" SourceFile="$(var.IconPath)" />
+    <Property Id="ARPPRODUCTICON" Value="ZavyxIcon.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/mohammadibrahimdev/zavyx-video-editor/releases/latest" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/mohammadibrahimdev/zavyx-video-editor/releases/latest" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/mohammadibrahimdev/zavyx-video-editor/issues" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="CraftSuiteFolder" Name="Zavyx">
+        <Directory Id="INSTALLFOLDER" Name="Zavyx VE" />
+      </Directory>
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Main" Title="Zavyx VE" Level="1">
+      <?if $(var.HasCraftFontLicences) = 1 ?>
+      <ComponentGroupRef Id="CraftFontLicences" />
+      <?endif?>
+      <ComponentGroupRef Id="ZavyxFiles" />
+    </Feature>
+  <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <UI>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2" Condition="NOT Installed" />
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" Condition="NOT Installed" />
+    </UI>
+  </Package>
+
+  <Fragment>
+    <?if $(var.HasCraftFontLicences) = 1 ?>
+    <ComponentGroup Id="CraftFontLicences" Directory="INSTALLFOLDER">
+      <Files Include="$(var.DocsDir)\**" />
+    </ComponentGroup>
+    <?endif?>
+    <ComponentGroup Id="ZavyxFiles" Directory="INSTALLFOLDER">
+      <Component Id="ZavyxApp" Guid="A4E2C9D1-3B57-4F08-8C6A-1E9D2B7F5A43">
+        <File Id="ZavyxNotice" Source="$(var.BinDir)\NOTICE" KeyPath="no" />
+        <File Id="ZavyxExe" Source="$(var.BinDir)\zavyx-ve.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Zavyx VE" Description="Zavyx VE video editor" WorkingDirectory="INSTALLFOLDER" Advertise="yes" Icon="ZavyxIcon.ico" IconIndex="0" />
+        </File>
+
+        <RegistryValue Root="HKMU" Key="Software\Microsoft\Windows\CurrentVersion\App Paths\zavyx-ve.exe" Value="[#ZavyxExe]" Type="string" />
+      <RegistryValue Root="HKMU" Key="Software\Zavyx VE" Name="InstallDir" Value="[INSTALLFOLDER]" Type="string" />
+      </Component>
+
+      <Component Id="ZavyxCli">
+        <File Id="ZavyxCliExe" Source="$(var.BinDir)\zavyx-ve-cli.exe" KeyPath="yes" />
+      </Component>
+
+      <!-- Zavyx: DirectX shader compiler (Microsoft DXC) and its licences. -->
+      <Component Id="ZavyxDxc" Guid="D7B3E8F2-5C14-4A69-9E2B-8F1C6D4A3B57">
+        <File Id="ZavyxDxcompiler" Source="$(var.BinDir)\dxcompiler.dll" KeyPath="yes" />
+        <File Id="ZavyxDxil" Source="$(var.BinDir)\dxil.dll" />
+        <File Id="ZavyxDxcLicenseMs" Source="$(var.BinDir)\DXC-LICENSE-MS.txt" />
+        <File Id="ZavyxDxcLicenseLlvm" Source="$(var.BinDir)\DXC-LICENSE-LLVM.txt" />
+        <File Id="ZavyxDxcLicenseMit" Source="$(var.BinDir)\DXC-LICENCE-MIT.txt" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

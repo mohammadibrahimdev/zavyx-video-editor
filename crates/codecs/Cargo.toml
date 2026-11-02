@@ -1,0 +1,48 @@
+[package]
+name = "zavyx-codecs"
+description = "Container + codec hub: MP4/MOV, Matroska, MXF, Ogg and MPEG TS/PS sources, image sequences, GOP-aware seeking, decoder registry, audio decoding"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+zavyx-time = { workspace = true }
+zavyx-color = { workspace = true }
+zavyx-frame = { workspace = true }
+zavyx-media = { workspace = true }
+zavyx-avi = { workspace = true }
+zavyx-isobmff = { workspace = true }
+zavyx-matroska = { workspace = true }
+zavyx-mxf = { workspace = true }
+zavyx-mpegts = { workspace = true }
+zavyx-mpeg2v = { workspace = true }
+zavyx-ac3 = { workspace = true }
+zavyx-mpa = { workspace = true }
+zavyx-ogg = { workspace = true }
+zavyx-bitstream = { workspace = true }
+zavyx-h264 = { workspace = true }
+zavyx-hevc = { workspace = true }
+zavyx-vp8 = { workspace = true }
+zavyx-vp9 = { workspace = true }
+zavyx-prores = { workspace = true }
+zavyx-dnx = { workspace = true }
+zavyx-av1 = { workspace = true }
+zavyx-apv = { workspace = true }
+zavyx-aac = { workspace = true }
+zavyx-opus = { workspace = true }
+rayon = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+# Decode timing counters (`gop_stats`); std's Instant panics on wasm32.
+web-time = "1"
+image = { version = "0.25", default-features = false, features = ["jpeg"] }
+# Bootstrap audio decoding (MPL-2.0, used unmodified); replaced by own decoders over time.
+symphonia = { version = "0.5.5", default-features = false, features = ["aac", "mp1", "mp2", "mp3", "flac", "alac", "pcm", "wav", "aiff", "ogg", "vorbis", "isomp4"] }
+
+[dev-dependencies]
+zavyx-testkit = { workspace = true }
+serde_json = { workspace = true }

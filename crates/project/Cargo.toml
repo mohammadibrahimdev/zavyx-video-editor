@@ -1,0 +1,22 @@
+[package]
+name = "zavyx-project"
+description = "Zavyx VE document model: projects, bins, clips, sequences, tracks, effects, keyframes, markers"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+zavyx-time = { workspace = true }
+zavyx-geom = { workspace = true }
+zavyx-color = { workspace = true }
+zavyx-media = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

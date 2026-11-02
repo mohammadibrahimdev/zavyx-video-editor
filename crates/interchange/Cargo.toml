@@ -1,0 +1,25 @@
+[package]
+name = "zavyx-interchange"
+description = "Zavyx VE interchange: CMX 3600 EDL, Final Cut Pro 7 XML (xmeml), FCPXML and OpenTimelineIO import/export"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+zavyx-time = { workspace = true }
+zavyx-geom = { workspace = true }
+zavyx-color = { workspace = true }
+zavyx-media = { workspace = true }
+zavyx-project = { workspace = true }
+zavyx-cfb = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+roxmltree = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

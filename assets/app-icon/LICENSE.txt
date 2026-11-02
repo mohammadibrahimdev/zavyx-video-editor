@@ -1,0 +1,10 @@
+Zavyx VE app icon and Zavyx wordmark (every file in assets/app-icon/ and assets/brand/,
+and apps/zavyx-ve-web/web/favicon.png).
+
+Original artwork by Mohammad Ibrahim for Zavyx, drawn in code by zavyx/gen_assets.py.
+No third-party material. Licensed like the rest of Zavyx VE, under either of
+
+  * Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+  * MIT license (https://opensource.org/licenses/MIT)
+
+at your option.

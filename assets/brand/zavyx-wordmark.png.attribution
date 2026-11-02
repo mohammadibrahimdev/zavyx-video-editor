@@ -1,0 +1,8 @@
+asset:        zavyx-wordmark.png
+title:        Zavyx wordmark, dark ink for light backgrounds
+author:       Mohammad Ibrahim (Zavyx)
+source:       original work (Zavyx brand artwork, drawn in code by zavyx/gen_assets.py)
+license:      MIT OR Apache-2.0
+license-file: assets/app-icon/LICENSE.txt
+added:        2026-11-01 by Claude (agent) for Mohammad Ibrahim
+notes:        About dialog and Import screen (crates/ui-egui/src/brand.rs).

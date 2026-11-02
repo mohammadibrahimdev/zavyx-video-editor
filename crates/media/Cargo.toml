@@ -1,0 +1,26 @@
+[package]
+name = "zavyx-media"
+description = "Media sources: probing, decoding traits, frame cache, generators, stills"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+zavyx-time = { workspace = true }
+zavyx-color = { workspace = true }
+zavyx-frame = { workspace = true }
+zavyx-dng = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "webp", "tiff", "bmp"] }
+
+[dev-dependencies]
+zavyx-testkit = { workspace = true }
+zavyx-dng = { workspace = true, features = ["writer"] }
+# APNG fixtures for the animated-image tests (the image crate does not encode APNG)
+png = "0.18"

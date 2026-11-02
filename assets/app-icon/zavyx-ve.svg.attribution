@@ -1,0 +1,8 @@
+asset:        zavyx-ve.svg
+title:        Zavyx VE app icon, canonical vector
+author:       Mohammad Ibrahim (Zavyx)
+source:       original work (Zavyx brand artwork, drawn in code by zavyx/gen_assets.py)
+license:      MIT OR Apache-2.0
+license-file: assets/app-icon/LICENSE.txt
+added:        2026-11-01 by Claude (agent) for Mohammad Ibrahim
+notes:        Used for docs and as the source of the PNG sizes.

@@ -1,0 +1,8 @@
+asset:        dev.zavyx.ve.png
+title:        Zavyx VE app icon, Linux hicolor theme 128 px
+author:       Mohammad Ibrahim (Zavyx)
+source:       original work (Zavyx brand artwork, drawn in code by zavyx/gen_assets.py)
+license:      MIT OR Apache-2.0
+license-file: assets/app-icon/LICENSE.txt
+added:        2026-11-01 by Claude (agent) for Mohammad Ibrahim
+notes:        128 px render.

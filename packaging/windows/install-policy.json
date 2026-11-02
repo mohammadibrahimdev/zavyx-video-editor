@@ -1,0 +1,27 @@
+{
+  "id": "zavyx-ve",
+  "name": "Zavyx VE",
+  "upgradeCode": "6C1F0B5E-7A3D-4E59-9B0E-5D2A8E4F7C31",
+  "sources": [
+    "zavyx-ve.wxs"
+  ],
+  "icon": "assets/app-icon/zavyx-ve.ico",
+  "localization": [],
+  "extensions": [
+    "UI"
+  ],
+  "payloads": [
+    "NOTICE",
+    "zavyx-ve-cli.exe",
+    "zavyx-ve.exe"
+  ],
+  "registry": [
+    [
+      "-1",
+      "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\zavyx-ve.exe",
+      "",
+      "[#ZavyxExe]"
+    ]
+  ],
+  "mode": "dualScope"
+}
