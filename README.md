@@ -62,6 +62,9 @@ The portable ZIP runs from any folder and keeps its settings next to `zavyx-ve.e
 Needs Windows 10 or 11 and a graphics card with DirectX 12 or Vulkan (almost every PC from the
 last ten years). On a PC without one, start it with `zavyx-ve.exe --graphics software`.
 
+Older PC, or no DirectX 12? Try **[Zavyx VE Lite](https://github.com/mohammadibrahimdev/zavyx-video-editor-lite)**:
+a smaller editor with the everyday tools (timeline, titles, transitions, effects, export).
+
 > Windows SmartScreen may say the app is from an unknown publisher until it is code-signed.
 > Click **More info → Run anyway**.
 
